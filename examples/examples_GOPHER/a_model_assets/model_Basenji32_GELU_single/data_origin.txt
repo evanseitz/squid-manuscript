@@ -1,0 +1,2 @@
+Basenji Single GELU 32
+/shared/complete_zenodo/trained_models/basenji_v2/binloss_basenji_v2/run-20220403_140918-4fru7zkl

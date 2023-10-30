@@ -1,0 +1,6 @@
+PWMs available at:
+https://aertslab.org/#data-resources-all
+https://resources.aertslab.org/papers/iregulon/motifColl-10k-all-public.txt
+
+PWMs selected from the above to match those used in DeepSTARR manuscript:
+https://github.com/bernardo-de-almeida/DeepSTARR/blob/711fef585c6a440610302c5b2bcf559b4e097628/Figures/Fig3.R#L62-L66

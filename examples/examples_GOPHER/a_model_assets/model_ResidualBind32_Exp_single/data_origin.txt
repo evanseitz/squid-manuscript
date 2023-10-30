@@ -1,0 +1,2 @@
+Residual Single Exponential 32
+shared/complete_zenodo/trained_models/.../run-20211023_095131-w6okxt01

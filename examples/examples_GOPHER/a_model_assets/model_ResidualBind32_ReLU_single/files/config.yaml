@@ -1,0 +1,62 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.10.33
+    framework: tensorflow
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.6.9
+    t:
+      1:
+      - 3
+      - 5
+      2:
+      - 3
+      - 5
+      3:
+      - 2
+      4: 3.6.9
+      5: 0.10.33
+      8:
+      - 5
+activation:
+  desc: null
+  value: relu
+bin_size:
+  desc: null
+  value: 32
+crop:
+  desc: null
+  value: r_crop
+data_dir:
+  desc: null
+  value: datasets/complete/random_chop/i_3072_w_1
+es_patience:
+  desc: null
+  value: 10
+l_rate:
+  desc: null
+  value: 0.001
+loss_fn:
+  desc: null
+  value: poisson
+lr_decay:
+  desc: null
+  value: 0.2
+lr_patience:
+  desc: null
+  value: 3
+model_fn:
+  desc: null
+  value: residual_profile_all_dense_32
+num_epochs:
+  desc: null
+  value: 100
+rev_comp:
+  desc: null
+  value: true
+window_size:
+  desc: null
+  value: 2048

@@ -1,0 +1,3 @@
+
+Residual Single ReLU 32
+shared/complete_zenodo/trained_models/.../run-20211023_095137-7xxdsfcc
