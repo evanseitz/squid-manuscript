@@ -31,9 +31,9 @@ if 1:
         r"\usepackage{amssymb}",
         r"\usepackage{bold-extra}"])
     
-gauge = 'wildtype'
+#gauge = 'wildtype'
 #gauge = 'empirical'
-#gauge = 'hierarchical'
+gauge = 'hierarchical'
 #gauge = 'default'
 
 alphabet = ['A','C','G','T']
@@ -222,6 +222,7 @@ set_box_color(add_plot_NL, color_add_NL)
 
 ax1.set_xlim(0, ax1.get_xlim()[1]+2.5)
 ax1.set_yticklabels(['ISM', 'Saliency', 'Linear', 'Nonlinear'], fontsize=12)
+ax1.xaxis.set_major_locator(MaxNLocator(integer=True))
 
 
 if 1:

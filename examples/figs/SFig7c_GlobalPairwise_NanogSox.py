@@ -27,10 +27,10 @@ start, stop = 480, 535
 dist_range = np.arange(8,31,1) #inter-motif distances
 alphabet = ['A','C','G','T']
 
-dataDir = os.path.join(parentDir, 'global/outputs/%s%s/MAVENN' % (motifA_name, motifB_name))
-logoDir = os.path.join(parentDir, 'global/outputs/%s%s/logos' % (motifA_name, motifB_name))
-graphDir = os.path.join(parentDir, 'global/outputs/%s%s/graphs' % (motifA_name, motifB_name))
-matrixDir = os.path.join(parentDir, 'global/outputs/%s%s/matrices' % (motifA_name, motifB_name))
+dataDir = os.path.join(parentDir, 'examples_BPNet_global/outputs/%s%s/MAVENN' % (motifA_name, motifB_name))
+logoDir = os.path.join(parentDir, 'examples_BPNet_global/outputs/%s%s/logos' % (motifA_name, motifB_name))
+graphDir = os.path.join(parentDir, 'examples_BPNet_global/outputs/%s%s/graphs' % (motifA_name, motifB_name))
+matrixDir = os.path.join(parentDir, 'examples_BPNet_global/outputs/%s%s/matrices' % (motifA_name, motifB_name))
 if not os.path.exists(logoDir):
     os.mkdir(logoDir)
 if not os.path.exists(graphDir):
@@ -160,7 +160,7 @@ if 1: #analyze pairwise matrices
             plt.close()
 
 if 1: #plot summation of model parameters vs inter_dist
-    fig, ax = plt.subplots(2, figsize=(5,5)) #10.5, 4
+    fig, ax = plt.subplots(2, figsize=(5.5,10)) #originally: (5, 5)
 
     if additive_graph is True:
         z = np.polyfit(dist_range, additive_sums, 6)
@@ -169,9 +169,9 @@ if 1: #plot summation of model parameters vs inter_dist
         y_new = f(x_new)
         ax[0].plot(x_new, y_new, c='gray')
         ax[0].scatter(dist_range, additive_sums, s=10, zorder=100, c='k')
-        #ax[0].axvline(10, c='lightgray', linestyle='--', linewidth=1, zorder=-10)
-        #ax[0].axvline(20, c='lightgray', linestyle='--', linewidth=1, zorder=-10)
-        #ax[0].axvline(30, c='lightgray', linestyle='--', linewidth=1, zorder=-10)
+        '''ax[0].axvline(10, c='lightgray', linestyle='--', linewidth=1, zorder=-10)
+        ax[0].axvline(20, c='lightgray', linestyle='--', linewidth=1, zorder=-10)
+        ax[0].axvline(30, c='lightgray', linestyle='--', linewidth=1, zorder=-10)'''
         ax[0].set_xticks([], [])
         ax[0].spines['top'].set_visible(False)
         ax[0].spines['right'].set_visible(False)
@@ -185,9 +185,9 @@ if 1: #plot summation of model parameters vs inter_dist
         y_new = f(x_new)
         ax[1].plot(x_new, y_new, c='gray')
         ax[1].scatter(dist_range, PW_sums_mask, s=8, zorder=100, c='k')
-        #ax[1].axvline(10, c='lightgray', linestyle='--', linewidth=1, zorder=-10)
-        #ax[1].axvline(20, c='lightgray', linestyle='--', linewidth=1, zorder=-10)
-        #ax[1].axvline(30, c='lightgray', linestyle='--', linewidth=1, zorder=-10)
+        '''ax[1].axvline(10, c='lightgray', linestyle='--', linewidth=1, zorder=-10)
+        ax[1].axvline(20, c='lightgray', linestyle='--', linewidth=1, zorder=-10)
+        ax[1].axvline(30, c='lightgray', linestyle='--', linewidth=1, zorder=-10)'''
         ax[1].spines['top'].set_visible(False)
         ax[1].spines['right'].set_visible(False)
         ax[1].tick_params(axis='both', which='major', labelsize=8)

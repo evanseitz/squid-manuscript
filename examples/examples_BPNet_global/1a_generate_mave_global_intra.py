@@ -192,7 +192,7 @@ for n in range(N):
     # summit max prediction:
     summitMax_mut_pos = predMut_TF_p[posMaxIdx]
     summitMax_mut_neg = predMut_TF_n[negMaxIdx]
-    summitMax_foldChange = summitMax_wt_pos / summitMax_mut_pos
+    summitMax_foldChange = summitMax_mut_pos / summitMax_wt_pos
     
     mpra_dataset = mpra_dataset.append({'y' : summitMax_foldChange, 
                                         'x' : synthDNA},

@@ -92,7 +92,7 @@ for df_idx in range(0, seq_total):
         sg_final = np.array(sg_final)
 
     if 1: #gauge fix
-        gauge = 'wildtype'
+        gauge = 'hierarchical'#'wildtype'
         add_early = squid_utils.fix_gauge(np.array(add_early), gauge=gauge, wt=X[df_idx])
         add_final = squid_utils.fix_gauge(np.array(add_final), gauge=gauge, wt=X[df_idx])
         sal_early = squid_utils.fix_gauge(np.array(sal_early), gauge=gauge, wt=X[df_idx])

@@ -144,7 +144,7 @@ def op(pyDir, inter_dist): #'inter_dist' : distance between motifs (see below)
     if 1:
         theta_dict = model.get_theta(gauge='empirical') # fixes gauge; {'uniform', 'emperical', 'consensus', 'user'}
         theta_dict.keys() # returns: {'theta_0' constant term; 'theta_lc' LxC additive effects; 'theta_lclc' LxCxLxC pairwise effects; 'theta_bb' all params for blackbox}
-        logo_df = theta_dict['logomaker_df']*-1.
+        logo_df = theta_dict['logomaker_df']#*-1.
         logo_df.fillna(0, inplace=True)
         fig, ax = plt.subplots(figsize=[10,2])
         logo = logomaker.Logo(df=logo_df,
@@ -161,7 +161,7 @@ def op(pyDir, inter_dist): #'inter_dist' : distance between motifs (see below)
         plt.close()
 
     if gpmap == 'pairwise': #plot pairwise heatmap
-        theta_lclc = theta_dict['theta_lclc']*-1.
+        theta_lclc = theta_dict['theta_lclc']#*-1.
         fig, ax = plt.subplots(figsize=[10,5])
         ax, cb = mavenn.heatmap_pairwise(values=theta_lclc,#[15:55,:,15:55,:],
                                         alphabet='dna',

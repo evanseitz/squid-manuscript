@@ -241,7 +241,7 @@ def op(pyDir, inter_dist): #'inter_dist' : distance between motifs (see below)
         pred_mut_MPRA = model.predict(np.expand_dims(oh,0))
         
         predMut_TF_p = pred_mut_MPRA[motifA_name+'/profile'][0][:,0] #strand '+'
-        predMut_TF_n = pred_mut_MPRA[motifB_name+'/profile'][0][:,1] #strand '-'
+        predMut_TF_n = pred_mut_MPRA[motifA_name+'/profile'][0][:,1] #strand '-'
         
         posMax = np.amax(predMut_TF_p)
         negMax = np.amax(predMut_TF_n)
@@ -251,11 +251,11 @@ def op(pyDir, inter_dist): #'inter_dist' : distance between motifs (see below)
         if 0: #summit max prediction
             summitMax_mut_pos = predMut_TF_p[posMaxIdx]
             summitMax_mut_neg = predMut_TF_n[negMaxIdx]
-            foldChange = summitMax_wt_pos / summitMax_mut_pos
+            foldChange = summitMax_mut_pos / summitMax_wt_pos
         else: #summit avg prediction
             summitAvg_mut_p = np.mean(predMut_TF_p[posMaxIdx-10:posMaxIdx+10])
             summitAvg_mut_n = np.mean(predMut_TF_n[negMaxIdx-10:negMaxIdx+10])
-            foldChange = summitAvg_wt_p / summitAvg_mut_p
+            foldChange = summitAvg_mut_p / summitAvg_wt_p
         
         mpra_dataset = mpra_dataset.append({'y' : foldChange,
                                             'x' : synthDNA},

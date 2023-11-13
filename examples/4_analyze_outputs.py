@@ -89,8 +89,9 @@ def op(pyDir, flank_idx, max_flank, gauge_type):
     
     fig_pad = flank_idx #overwrite to make program loopable
 
-    if int(model_pad) < int(fig_pad): #'model_pad' must be same as used to generate data
-        print("Error: parameter 'fig_pad' cannot exceed 'model_pad'.")
+    if scope == 'inter':
+        if int(model_pad) < int(fig_pad): #'model_pad' must be same as used to generate data
+            print("Error: parameter 'fig_pad' cannot exceed 'model_pad'.")
 
     if 1: #default analysis
         mask = False
@@ -879,7 +880,7 @@ def op(pyDir, flank_idx, max_flank, gauge_type):
                     ISM_B_singles = np.linalg.norm(ISM_B_all_norm - ISM_B_mean, axis=(1,2))
                     sal_B_singles = np.linalg.norm(sal_B_all_norm - sal_B_mean, axis=(1,2))
 
-        elif standardize_local is True and standardize_global is True:
+        '''elif standardize_local is True and standardize_global is True:
             add_A_all_norm /= LA.norm(add_A_all_norm)
             add_A_std = np.std(add_A_all_norm, axis=0)
             add_A_singles = np.linalg.norm(add_A_all_norm - add_A_mean, axis=(1,2))
@@ -909,6 +910,7 @@ def op(pyDir, flank_idx, max_flank, gauge_type):
             """
             add_A_all /= LA.norm(add_A_all)
             add_A_std = np.std(add_A_all, axis=0)
+
             add_A_singles = np.linalg.norm(add_A_all - add_A_mean, axis=(1,2))
             if compare is True:
                 ISM_A_all /= LA.norm(ISM_A_all)
@@ -927,7 +929,7 @@ def op(pyDir, flank_idx, max_flank, gauge_type):
                     ISM_B_std = np.std(ISM_B_all, axis=0)
                     sal_B_std = np.std(sal_B_all, axis=0)
                     ISM_B_singles = np.linalg.norm(ISM_B_all - ISM_B_mean, axis=(1,2))
-                    sal_B_singles = np.linalg.norm(sal_B_all - sal_B_mean, axis=(1,2))
+                    sal_B_singles = np.linalg.norm(sal_B_all - sal_B_mean, axis=(1,2))'''
             
         for motif_idx in motif_idxs:
             if motif_idx == 0:

@@ -26,8 +26,8 @@ pwm_file = False
 save = True #save outputs
 alphabet = ['A','C','G','T']
 #gauge = 'empirical' #{empirical, hierarchical, wildtype, default}
-#gauge = 'hierarchical'
-gauge = 'wildtype'
+gauge = 'hierarchical'
+#gauge = 'wildtype'
 #gauge = 'default'
 
 saveDir = os.path.join(pyDir,'Fig4_data/%s' % gauge)
@@ -35,7 +35,7 @@ if not os.path.exists(saveDir):
     os.makedirs(saveDir)
 
 # choose only one model/motif below
-if 1: #DeepSTARR
+if 0: #DeepSTARR
     if 1: # DRE
         pfm_fname = os.path.join(parentDir,'examples_DeepSTARR/b_recognition_sites/PWMs/known_PWMs/dre__homer-M00230.pfm') #path to position frequency matrix
         motif_A_name = 'DRE'
@@ -64,8 +64,8 @@ if 1: #DeepSTARR
     with h5py.File(os.path.join(userDir, 'a_model_assets/deepstarr_data.h5'), 'r') as dataset:
         X_in = np.array(dataset['x_test']).astype(np.float32)
     
-if 0: #ResidualBind32
-    if 0: #AP-1
+if 1: #ResidualBind32
+    if 1: #AP-1
         if 0:
             pfm_fname = os.path.join(parentDir,'examples_GOPHER/b_recognition_sites/PWMs/known_PWMs/ap1__MA0491.1.pfm') #path to position frequency matrix
             rc = True
@@ -76,7 +76,7 @@ if 0: #ResidualBind32
         motif_A = 'TGAGTCA'
         left_pad, right_pad = 2,2 #based on pfm padding around core motif compared to 'motif_A' defined in 'set_parameters.py'
         class_idx = 13
-    if 1: #IRF1
+    if 0: #IRF1
         pfm_fname = os.path.join(parentDir,'examples_GOPHER/b_recognition_sites/PWMs/known_PWMs/irf1__MA0050.1.pfm') #path to position frequency matrix
         rc = False
         motif_A_name = '7_IRF1-long'
@@ -102,14 +102,14 @@ if 0: #BPNET
         left_pad, right_pad = 2,1 #based on pfm padding around core motif compared to 'motif_A' defined in 'set_parameters.py'
         max_muts = 2
         rc = False
-    if 0: #Sox2
+    if 1: #Sox2
         pfm_fname = os.path.join(parentDir, 'examples_BPNet/b_recognition_sites/PWMs/known_PWMs/SOX2.H12CORE.0.P.B_hocomoco.pcm')
         motif_A_name = 'Sox2'
         motif_A = 'GAACAATAG'
         left_pad, right_pad = 2,1 #based on pfm padding around core motif compared to 'motif_A' defined in 'set_parameters.py'
         max_muts = 2
         rc = True
-    if 1: #Nanog
+    if 0: #Nanog
         if 0:
             pfm_fname = os.path.join(parentDir,'examples_BPNet/b_recognition_sites/PWMs/known_PWMs/nanog__HUMAN.H11MO.1.B.pcm') #path to position frequency matrix
             left_pad, right_pad = 1,0 #AGCCATCAA

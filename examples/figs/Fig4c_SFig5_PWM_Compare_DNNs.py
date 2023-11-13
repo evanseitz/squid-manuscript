@@ -33,8 +33,8 @@ if 1:
 
 
 #gauge = 'empirical' #{empirical, hierarchical, wildtype, default}
-#gauge = 'hierarchical'
-gauge = 'wildtype'
+gauge = 'hierarchical'
+#gauge = 'wildtype'
 #gauge = 'default'
 
 assetDir = os.path.join(pyDir,'Fig4_data/%s' % gauge)
@@ -51,15 +51,16 @@ alphabet = ['A','C','G','T']
 
 fig = plt.figure(figsize=[15,5], constrained_layout=True)
 
-y_c = 6 #add y_c to max
 if gauge == 'wildtype':
+    y_c = 6 #add y_c to max
     ymaxs = [16+y_c, 17+y_c, 18+y_c]
 elif gauge == 'empirical': 
-    ymaxs = [41, 41, 41]
+    ymaxs = [41, 41, 41] #TBD
 elif gauge == 'hierarchical':
-    ymaxs = [41, 41, 41]
+    y_c = 2
+    ymaxs = [32+y_c, 35+y_c, 37+y_c]
 elif gauge == 'default':
-    ymaxs = [36, 36, 36]
+    ymaxs = [36, 36, 36] #TBD
 y_idx = 0
 
 lw = 1 #linewidth for plots

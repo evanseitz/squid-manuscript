@@ -973,7 +973,7 @@ def set_params_4():
     """
 
     seq_total = 50
-    gauge = 'empirical'#'wildtype' #if running via '4_batch.sh', a list of gauges are supplied which will overwrite this argument
+    gauge = 'hierarchical' #if running via '4_batch.sh', a list of gauges are supplied which will overwrite this argument
     show_cropped = False
     show_compared = False
     filter_muts = False

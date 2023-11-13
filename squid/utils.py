@@ -383,7 +383,8 @@ def rescale(x, a, b):
 
 def normalize(x, x_full): #technically a standardization
     std = x_full.std() #not position dependent
-    mu = np.expand_dims(np.mean(x, axis=1), axis=1) #position dependent
+    #mu = np.expand_dims(np.mean(x, axis=1), axis=1) #position dependent
+    mu = 0.
     z = (x - mu) / std
     
     return z

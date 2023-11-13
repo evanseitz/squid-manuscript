@@ -84,7 +84,7 @@ model.fit(learning_rate=5e-4, #5e-4 default
           early_stopping=True,
           early_stopping_patience=25,
           linear_initialization=False,
-          verbose=False);
+          verbose=False)
 
 model.save(os.path.join(dataDir, '%s_GE_%s' % (fname[5:], gpmap)))
 
@@ -107,7 +107,7 @@ if 1:
 if 1:
     theta_dict = model.get_theta(gauge='empirical') # fixes gauge; {'uniform', 'emperical', 'consensus', 'user'}
     theta_dict.keys() # returns: {'theta_0' constant term; 'theta_lc' LxC additive effects; 'theta_lclc' LxCxLxC pairwise effects; 'theta_bb' all params for blackbox}
-    logo_df = theta_dict['logomaker_df']*-1.
+    logo_df = theta_dict['logomaker_df']#*-1.
     logo_df.fillna(0, inplace=True)
     # create figure for logo
     fig, ax = plt.subplots(figsize=[10.5,1])

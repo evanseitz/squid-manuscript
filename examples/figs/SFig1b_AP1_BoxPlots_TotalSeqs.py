@@ -53,7 +53,7 @@ attributions_all = np.zeros(shape=(107,4,len(avgMuts)))
 # gather average_muts data and consolidate it for figures
 for m_idx, m in enumerate(avgMuts):
     avgFolder = 'SQUID_13_AP1_intra_mut0_N%s_pad%s' % (m,fig_pad)
-    avgDir = os.path.join(parentDir, 'examples_GOPHER/d_outputs_analysis/model_ResidualBind32_ReLU_single/%s' % avgFolder)
+    avgDir = os.path.join(parentDir, 'examples_GOPHER/d_outputs_analysis/model_ResidualBind32_ReLU_single_totalSeqs/%s' % avgFolder)
 
     avg_add = pd.read_csv(os.path.join(avgDir, 'ADD_A/avg_additive_A.csv'), index_col=0)
     tribox = np.load(os.path.join(avgDir, 'stats/compare_boxplot_A_values.npy'), allow_pickle='TRUE').item()
@@ -90,7 +90,7 @@ ax8 = fig.add_subplot(gs0[6, 0])
 ax8.axes.get_xaxis().set_ticks([])
 ax8.axes.get_yaxis().set_ticks([])
 ax9 = fig.add_subplot(gs0[7, 0])
-ax9.axes.get_xaxis().set_ticks([])
+#ax9.axes.get_xaxis().set_ticks([])
 ax9.axes.get_yaxis().set_ticks([])
 '''ax10 = fig.add_subplot(gs0[8, 0])
 ax10.axes.get_xaxis().set_ticks([])
@@ -123,7 +123,7 @@ for p_idx, p in enumerate(pos):
     ax1.scatter(boxplots_all[p_idx], singles_x, alpha=a, s=s, c=color_add_NL, zorder=-10)
 
 
-ax1.axvline(boxplots['medians'][0].get_xdata()[0], c='k', linewidth=0.5, zorder=-100)
+#ax1.axvline(boxplots['medians'][0].get_xdata()[0], c='k', linewidth=0.5, zorder=-100)
 #ax1.set_xlim(0, ax1.get_xlim()[1]+2.5)
 ax1.set_yticklabels(ylabels[::-1], fontsize=12)
 
