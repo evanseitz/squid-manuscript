@@ -20,7 +20,7 @@ grandParentDir = os.path.dirname(parentDir)
 sys.path.append(grandParentDir)
 import squid.utils as squid_utils
 
-np.random.seed(0)
+np.random.seed(2)
 
 if 1:
     plt.rc('text.latex', preamble=r'\usepackage[cm]{sfmath}')
@@ -41,6 +41,7 @@ alpha = 'dna'
 fig_pad = 15
 seq_total = 50
 
+
 avgFolder = 'SQUID_13_AP1_intra_mut0/pad%s' % fig_pad
 avgFolder_linear = 'SQUID_13_AP1_intra_mut0_ridge/pad%s' % fig_pad
 
@@ -59,48 +60,57 @@ tribox_L = np.load(os.path.join(avgDir_linear, 'stats/stats_%s/compare_boxplot_A
 wtFolder_NL = 'SQUID_13_AP1_intra_mut0'
 wtFolder_L = wtFolder_NL#'SQUID_13_AP1_intra_mut0_ridge'
 
+#uniform_min = 'rank3_seq261'
+#uniform_min = 'rank46_seq3179'
+uniform_min = 'rank26_seq1538'
+
+#uniform_max = 'rank15_seq2554'
+#uniform_max = 'rank9_seq17'
+uniform_max = 'rank14_seq781'
+#uniform_max = 'rank0_seq834'
+
 # fill in the following rankA_seqB indices based on the CLI outputs that will print later in this script
 ### ISM min
-wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank47_seq3179' % wtFolder_NL)
+wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_min)) #rank47_seq3179
 wt_ISM1 = np.load(os.path.join(wtDir, 'attributions_ISM_single.npy'))
 wt_ISM1 = squid_utils.fix_gauge(np.array(wt_ISM1), gauge='hierarchical', wt=None)
 wt_ISM1 = squid_utils.arr2pd(wt_ISM1, alphabet)
 
 ### ISM max
-wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank9_seq17' % wtFolder_NL)
+wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_max)) #rank9_seq17
 wt_ISM2 = np.load(os.path.join(wtDir, 'attributions_ISM_single.npy'))
 wt_ISM2 = squid_utils.fix_gauge(np.array(wt_ISM2), gauge='hierarchical', wt=None)
 wt_ISM2 = squid_utils.arr2pd(wt_ISM2, alphabet)
 
 ### Saliency min
-wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank31_seq1070' % wtFolder_NL)
+wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_min)) #rank31_seq1070
 wt_sal1 = np.load(os.path.join(wtDir, 'attributions_saliency.npy'))
 wt_sal1 = squid_utils.fix_gauge(np.array(wt_sal1), gauge='hierarchical', wt=None)
 wt_sal1 = squid_utils.arr2pd(wt_sal1, alphabet)
 ### Saliency max
-wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank35_seq383' % wtFolder_NL) #rank9_seq17
+wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_max)) #rank35_seq383
 wt_sal2 = np.load(os.path.join(wtDir, 'attributions_saliency.npy'))
 wt_sal2 = squid_utils.fix_gauge(np.array(wt_sal2), gauge='hierarchical', wt=None)
 wt_sal2 = squid_utils.arr2pd(wt_sal2, alphabet)
 
 ### Additive Ridge min
-wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank3_seq261' % wtFolder_L)
+wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_L, uniform_min)) #rank3_seq261
 wt_add1_L = pd.read_csv(os.path.join(wtDir, 'ridge_additive.csv'), index_col=0)
 wt_add1_L = squid_utils.fix_gauge(np.array(wt_add1_L), gauge='hierarchical', wt=None)
 wt_add1_L = squid_utils.arr2pd(wt_add1_L, alphabet)
 ### Additive Ridge max
-wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank15_seq2554' % wtFolder_L)
+wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_L, uniform_max)) #rank15_seq2554
 wt_add2_L = pd.read_csv(os.path.join(wtDir, 'ridge_additive.csv'), index_col=0)
 wt_add2_L = squid_utils.fix_gauge(np.array(wt_add2_L), gauge='hierarchical', wt=None)
 wt_add2_L = squid_utils.arr2pd(wt_add2_L, alphabet)
 
 ### Additive Nonlinear min
-wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank26_seq1538' % wtFolder_NL)
+wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_min)) #rank26_seq1538
 wt_add1_NL = pd.read_csv(os.path.join(wtDir, 'logo_additive.csv'), index_col=0)
 wt_add1_NL = squid_utils.fix_gauge(np.array(wt_add1_NL), gauge='hierarchical', wt=None)
 wt_add1_NL = squid_utils.arr2pd(wt_add1_NL, alphabet)
 ### Additive Nonlinear max
-wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank43_seq3573' % wtFolder_NL)
+wtDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_max)) #rank43_seq3573
 wt_add2_NL = pd.read_csv(os.path.join(wtDir, 'logo_additive.csv'), index_col=0)
 wt_add2_NL = squid_utils.fix_gauge(np.array(wt_add2_NL), gauge='hierarchical', wt=None)
 wt_add2_NL = squid_utils.arr2pd(wt_add2_NL, alphabet)
@@ -167,6 +177,17 @@ print('ISM min/max index: %s, %s' % (np.argmin(ism_boxes), np.argmax(ism_boxes))
 print('saliency min/max index: %s, %s' % (np.argmin(sal_boxes), np.argmax(sal_boxes)))
 print('additive_L min/max index: %s, %s' % (np.argmin(add_boxes_L), np.argmax(add_boxes_L)))
 print('additive_NL min/max index: %s, %s' % (np.argmin(add_boxes_NL), np.argmax(add_boxes_NL)))
+print('')
+print('ISM lowest 10:', np.argsort(ism_boxes)[:15])
+print('sal lowest 10:', np.argsort(sal_boxes)[:15])
+print('add_L lowest 10:', np.argsort(add_boxes_L)[:15])
+print('add_NL lowest 10:', np.argsort(add_boxes_NL)[:15])
+print('')
+print('ISM highest 10:', np.argsort(-1*ism_boxes)[:15])
+print('sal highest 10:', np.argsort(-1*sal_boxes)[:15])
+print('add_L highest 10:', np.argsort(-1*add_boxes_L)[:15])
+print('add_NL highest 10:', np.argsort(-1*add_boxes_NL)[:15])
+print('')
 
 
 #A, B, C = -1, 0, 1
@@ -284,7 +305,12 @@ if 1:
 # Attribution maps for individual sequences
 # =============================================================================
 if 1:
-    start, stop = 964, 970
+    ax2.set_title('Min Error', fontsize=16, pad=10)
+    #start, stop = 755, 761 #rank_3
+    #start, stop = 964, 970 #rank 46
+    start, stop = 945, 951 #rank 26
+
+
     logo = logomaker.Logo(df=wt_ISM1[start-fig_pad:stop+fig_pad+1],
                         ax=ax2,
                         fade_below=.5,
@@ -292,17 +318,16 @@ if 1:
                         width=.9,
                         center_values=True,
                         font_name='Arial Rounded MT Bold',
-                        color_scheme='dimgray')
-    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank47_seq3179' % wtFolder_NL)
+                        #color_scheme='dimgray'
+                        )
+    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_min)) #rank47_seq3179
     ref_attr = pd.read_csv(os.path.join(refDir, 'attributions_ISM_single.csv'), index_col=0)
     ref_arr = np.where(np.array(ref_attr)!=0., 1, 0)
     ref_seq = squid_utils.oh2seq(ref_arr[start-fig_pad:stop+fig_pad+1], ['A','C','G','T'])
-    logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_ISM)
+    #logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_ISM)
 
 
-    ax2.set_title('Min Error', fontsize=16, pad=10)
-
-    start, stop = 1038, 1044
+    #start, stop = 1038, 1044
     logo = logomaker.Logo(df=wt_sal1[start-fig_pad:stop+fig_pad+1],
                     ax=ax3,
                     fade_below=.5,
@@ -310,14 +335,14 @@ if 1:
                     width=.9,
                     center_values=True,
                     font_name='Arial Rounded MT Bold',
-                    color_scheme='dimgray')
-    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank31_seq1070' % wtFolder_NL)
+                    #color_scheme='dimgray'
+                    )
+    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_min)) #rank31_seq1070
     ref_attr = pd.read_csv(os.path.join(refDir, 'attributions_ISM_single.csv'), index_col=0)
     ref_arr = np.where(np.array(ref_attr)!=0., 1, 0)
     ref_seq = squid_utils.oh2seq(ref_arr[start-fig_pad:stop+fig_pad+1], ['A','C','G','T'])
-    logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_sal)
+    #logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_sal)
 
-    start, stop = 755, 761
     logo = logomaker.Logo(df=wt_add1_L[start-fig_pad:stop+fig_pad+1],
                     ax=ax4,
                     fade_below=.5,
@@ -325,14 +350,15 @@ if 1:
                     width=.9,
                     center_values=True,
                     font_name='Arial Rounded MT Bold',
-                    color_scheme='dimgray')
-    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank3_seq261' % wtFolder_NL)
+                    #color_scheme='dimgray'
+                    )
+    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_min)) #rank3_seq261
     ref_attr = pd.read_csv(os.path.join(refDir, 'attributions_ISM_single.csv'), index_col=0)
     ref_arr = np.where(np.array(ref_attr)!=0., 1, 0)
     ref_seq = squid_utils.oh2seq(ref_arr[start-fig_pad:stop+fig_pad+1], ['A','C','G','T'])
-    logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_add_L)
+    #logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_add_L)
 
-    start, stop = 945, 951
+    #start, stop = 945, 951
     logo = logomaker.Logo(df=wt_add1_NL[start-fig_pad:stop+fig_pad+1],
                     ax=ax5,
                     fade_below=.5,
@@ -340,17 +366,22 @@ if 1:
                     width=.9,
                     center_values=True,
                     font_name='Arial Rounded MT Bold',
-                    color_scheme='dimgray')
-    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank26_seq1538' % wtFolder_NL)
+                    #color_scheme='dimgray'
+                    )
+    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_min)) #rank26_seq1538
     ref_attr = pd.read_csv(os.path.join(refDir, 'attributions_ISM_single.csv'), index_col=0)
     ref_arr = np.where(np.array(ref_attr)!=0., 1, 0)
     ref_seq = squid_utils.oh2seq(ref_arr[start-fig_pad:stop+fig_pad+1], ['A','C','G','T'])
-    logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_add_NL)
+    #logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_add_NL)
 
 
     ax6.set_title('Max Error', fontsize=16, pad=10)
+    #start, stop = 1200, 1206 #rank 15
+    #start, stop = 1028, 1034 #rank 9
+    #start, stop = 1042, 1048 #rank 0
+    start, stop = 770, 776 #rank 14
 
-    start, stop = 1028, 1034
+   
     logo = logomaker.Logo(df=wt_ISM2[start-fig_pad:stop+fig_pad+1],
                     ax=ax6,
                     fade_below=.5,
@@ -358,14 +389,15 @@ if 1:
                     width=.9,
                     center_values=True,
                     font_name='Arial Rounded MT Bold',
-                    color_scheme='dimgray')
-    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank9_seq17' % wtFolder_NL)
+                    #color_scheme='dimgray'
+                    )
+    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_max)) #rank9_seq17
     ref_attr = pd.read_csv(os.path.join(refDir, 'attributions_ISM_single.csv'), index_col=0)
     ref_arr = np.where(np.array(ref_attr)!=0., 1, 0)
     ref_seq = squid_utils.oh2seq(ref_arr[start-fig_pad:stop+fig_pad+1], ['A','C','G','T'])
-    logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_ISM)
+    #logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_ISM)
 
-    start, stop = 1063, 1069 #1028, 1034
+    #start, stop = 1063, 1069 #1028, 1034
     logo = logomaker.Logo(df=wt_sal2[start-fig_pad:stop+fig_pad+1],
                     ax=ax7,
                     fade_below=.5,
@@ -373,14 +405,14 @@ if 1:
                     width=.9,
                     center_values=True,
                     font_name='Arial Rounded MT Bold',
-                    color_scheme='dimgray')
-    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank35_seq383' % wtFolder_NL) #rank9_seq17
+                    #color_scheme='dimgray'
+                    )
+    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_max)) #rank35_seq383
     ref_attr = pd.read_csv(os.path.join(refDir, 'attributions_ISM_single.csv'), index_col=0)
     ref_arr = np.where(np.array(ref_attr)!=0., 1, 0)
     ref_seq = squid_utils.oh2seq(ref_arr[start-fig_pad:stop+fig_pad+1], ['A','C','G','T'])
-    logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_sal)
+    #logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_sal)
 
-    start, stop = 1200, 1206
     logo = logomaker.Logo(df=wt_add2_L[start-fig_pad:stop+fig_pad+1],
                     ax=ax8,
                     fade_below=.5,
@@ -388,14 +420,15 @@ if 1:
                     width=.9,
                     center_values=True,
                     font_name='Arial Rounded MT Bold',
-                    color_scheme='dimgray')
-    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank15_seq2554' % wtFolder_L)
+                    #color_scheme='dimgray'
+                    )
+    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_L, uniform_max)) #rank15_seq2554
     ref_attr = pd.read_csv(os.path.join(refDir, 'attributions_ISM_single.csv'), index_col=0)
     ref_arr = np.where(np.array(ref_attr)!=0., 1, 0)
     ref_seq = squid_utils.oh2seq(ref_arr[start-fig_pad:stop+fig_pad+1], ['A','C','G','T'])
-    logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_add_L)
+    #logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_add_L)
 
-    start, stop = 1118, 1124
+    #start, stop = 1118, 1124
     logo = logomaker.Logo(df=wt_add2_NL[start-fig_pad:stop+fig_pad+1],
                     ax=ax9,
                     fade_below=.5,
@@ -403,12 +436,13 @@ if 1:
                     width=.9,
                     center_values=True,
                     font_name='Arial Rounded MT Bold',
-                    color_scheme='dimgray')
-    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/rank43_seq3573' % wtFolder_NL)
+                    #color_scheme='dimgray'
+                    )
+    refDir = os.path.join(parentDir, 'examples_GOPHER/c_surrogate_outputs/model_ResidualBind32_ReLU_single/%s/%s' % (wtFolder_NL, uniform_max))
     ref_attr = pd.read_csv(os.path.join(refDir, 'attributions_ISM_single.csv'), index_col=0)
     ref_arr = np.where(np.array(ref_attr)!=0., 1, 0)
     ref_seq = squid_utils.oh2seq(ref_arr[start-fig_pad:stop+fig_pad+1], ['A','C','G','T'])
-    logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_add_NL)
+    #logo.style_glyphs_in_sequence(sequence=ref_seq, color=color_add_NL)
 
     # =============================================================================
     # Averaged attribution maps
