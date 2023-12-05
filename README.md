@@ -14,7 +14,7 @@ This repository reproduces the analysis performed in our manuscript **Identifyin
 ## Usage:
 The `/examples` directory contains example code for running SQUID on several deep-learning models. Within that directory, we have supplied additional README material for setting up environments and initializing our workflow. As well, detailed instructions and comments for all procedures are provided in the code.
 
-The initial release of this repository is also available via Zenodo (10.5281/zenodo.10047748), with the addition that all intermediate and final outputs are provided there.
+The release of this repository is also available via [Zenodo](doi.org/10.5281/zenodo.10047747), with the addition that all intermediate and final outputs are provided there.
 
 ## Attribution:
 If the specific code in this analysis repository is useful in your work, please cite:
@@ -23,7 +23,7 @@ If the specific code in this analysis repository is useful in your work, please 
 @article{seitz2023_squid-manuscript,
   title={SQUID manuscript workflow with outputs},
   author={Seitz, Evan},
-  doi={10.5281/zenodo.10047748},
+  doi={10.5281/zenodo.10047747},
   year={2023},
   publisher={Zenodo}
 }
