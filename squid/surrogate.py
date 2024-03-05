@@ -29,6 +29,75 @@ def run_ridge(mave, squid_utils, alphabet, drop=True):
     return (coef, model, Y, yhat)
 
 
+def run_lasso(mave, squid_utils, alphabet, drop=True, cv=False):
+    from sklearn.linear_model import LassoCV, Lasso
+
+    if drop is True:
+        mave.drop_duplicates(['y', 'x'], inplace=True)
+
+    print('Encoding one hots...')
+    X = np.zeros(shape=(mave['x'].shape[0], len(mave['x'][0]), len(alphabet)))
+    for i in range(mave['x'].shape[0]):
+        X[i,:,:] = squid_utils.seq2oh(mave['x'][i], alphabet)
+    print('Running lasso regression...')
+
+    Y = np.array(mave['y'])
+    X = X.reshape(X.shape[0], -1)
+    if cv is False:
+        model = Lasso(alpha=1.0).fit(X, Y)
+    else:
+        model = LassoCV(alphas=[1e-3, 1e-2, 1e-1, 1], cv=5).fit(X, Y)
+    coef = model.coef_
+    yhat = model.predict(X)
+
+    if 1: #quantify ruggedness of function; i.e., how well a linear model can explain the fitness landscape
+        s = np.mean(np.abs(coef))
+        r = np.sqrt(np.mean((yhat - Y)**2))
+        print('r/s: ', r/s) #roughness to slope ratio (r/s)
+
+    return (coef, model, Y, yhat)
+
+
+def run_lime(mave, squid_utils, alphabet, k=10, drop=True, cv=False):
+    from sklearn.linear_model import Lasso, LassoLarsCV
+    # k specifies the number of nonzero weights
+
+    if drop is True:
+        mave.drop_duplicates(['y', 'x'], inplace=True)
+
+    print('Encoding one hots...')
+    X = np.zeros(shape=(mave['x'].shape[0], len(mave['x'][0]), len(alphabet)))
+    for i in range(mave['x'].shape[0]):
+        X[i,:,:] = squid_utils.seq2oh(mave['x'][i], alphabet)
+    Y = np.array(mave['y'])
+    X = X.reshape(X.shape[0], -1)
+
+    print('Running LassoLars regression...')
+    model = LassoLarsCV(cv=None).fit(X, Y)
+
+    alphas = model.alphas_
+    nonzero_weights = np.apply_along_axis(np.count_nonzero, 0, model.coef_path_)
+    selected_alpha_idx = np.where(nonzero_weights == k)[0][0]
+    selected_alpha = alphas[selected_alpha_idx]
+    print('Selected alpha:', selected_alpha)
+
+    # get the final coefficients
+    coef = model.coef_path_[:,selected_alpha_idx]
+    #yhat = np.dot(X, coef)
+
+    # mask out all zeroed features
+    zeros_index = np.where(coef==0)
+    X_masked = X.copy()
+    X_masked[:, zeros_index] = 0
+
+    # refit the data on the masked set using least squares linear regression
+    model_sparse = Lasso(alpha=0.).fit(X_masked, Y)
+    coef_sparse = model_sparse.coef_
+    yhat_sparse = model_sparse.predict(X)
+
+    return (coef_sparse, model_sparse, Y, yhat_sparse)
+
+
 def run_mavenn(mave, gpmap, alphabet, gauge, regression='GE', linearity='nonlinear',
                     noise='SkewedT', noise_order=2, drop=True):
     

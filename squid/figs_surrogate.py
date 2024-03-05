@@ -316,7 +316,7 @@ def matrix_and_logo(matrix, xticks, clim, label, L, P, alphabet, savePath, plot_
         plt.close()
         
     # create figure for corresponding logo
-    if plot_logo is True: 
+    if plot_logo is True:
         if 0:
             fig, ax = plt.subplots(figsize=[7,2])
         else:

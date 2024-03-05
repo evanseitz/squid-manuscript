@@ -888,7 +888,9 @@ def set_params_3():
     surrogate : STRING {'mavenn' or 'ridge'}
         Type of surrogate model to use
             'mavenn':   use the MAVE-NN suite (recommended)
-            'ridge':    ridge regression
+            'lasso':    lasso regression (scikit-learn Lasso)
+            'ridge':    ridge regression (scikit-learn RidgeCV)
+            'lime':     least squares linear regression on k features
     regression : STRING {'MPA' or 'GE'}
         Type of regression used for measurement process
             'MPA':      measurement process agnostic (categorical y-values)
@@ -914,7 +916,7 @@ def set_params_3():
         If True, drop all duplicate {x, y} rows in MAVE dataframe
     """
 
-    surrogate = 'mavenn' #options: {'mavenn', 'ridge'}
+    surrogate = 'mavenn' #options: {'mavenn', 'lasso', 'ridge', 'lime'}
     drop = True
 
     if surrogate == 'mavenn': #see MAVE-NN documentation for more information on these parameters and others
@@ -928,7 +930,7 @@ def set_params_3():
             linearity = 'linear'
             noise_order = 0
         noise = 'SkewedT'
-    elif surrogate == 'ridge':
+    elif surrogate == 'ridge' or surrogate == 'lasso' or surrogate == 'lime':
         regression, gpmap, gauge, linearity, noise_order, noise = None, None, None, None, None, None
 
     else:

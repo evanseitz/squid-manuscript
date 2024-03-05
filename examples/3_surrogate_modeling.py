@@ -250,8 +250,14 @@ def op(pyDir, df_idx):
     # =============================================================================
     print('Initiating surrogate modeling...')
     start_time = time.time()
-    if surrogate == 'ridge':
-        coef, model, y_mave, yhat = squid_surrogate.run_ridge(mave_custom, squid_utils, alphabet=alphabet, drop=drop)
+    if surrogate == 'ridge' or surrogate == 'lasso' or surrogate == 'lime':
+        if surrogate == 'ridge':
+            coef, model, y_mave, yhat = squid_surrogate.run_ridge(mave_custom, squid_utils, alphabet=alphabet, drop=drop)
+        elif surrogate == 'lasso':
+            coef, model, y_mave, yhat = squid_surrogate.run_lasso(mave_custom, squid_utils, alphabet=alphabet, drop=drop)
+        elif surrogate == 'lime':
+            k = 10
+            coef, model, y_mave, yhat = squid_surrogate.run_lime(mave_custom, squid_utils, alphabet=alphabet, drop=drop, k=k)
 
         print('--- Surrogate modeling: %s seconds ---' % (time.time() - start_time))
 
@@ -262,12 +268,18 @@ def op(pyDir, df_idx):
         logo = logo_zeros
         logo = squid_utils.arr2pd(logo, alphabet)
         
-        squid_figs_surrogate.logo_additive(logo, scope, start, stop, 3, saveDir, 'ridge')
+        squid_figs_surrogate.logo_additive(logo, scope, start, stop, 3, saveDir, surrogate)
         squid_figs_surrogate.y_vs_yhat(model, y_mave, yhat, saveDir)
-        logo.to_csv(os.path.join(saveDir, 'ridge_additive.csv'))
-        np.save(os.path.join(saveDir,'ridge_coef.npy'), coef)
-        import joblib
-        joblib.dump(model, os.path.join(saveDir,'ridge_model.pkl'))
+        if surrogate != 'lime':
+            logo.to_csv(os.path.join(saveDir, '%s_additive.csv' % surrogate))
+            np.save(os.path.join(saveDir,'%s_coef.npy' % surrogate), coef)
+            import joblib
+            joblib.dump(model, os.path.join(saveDir,'%s_model.pkl' % surrogate))
+        else:
+            logo.to_csv(os.path.join(saveDir, '%s_k%s_additive.csv' % (surrogate, k)))
+            np.save(os.path.join(saveDir,'%s_k%s_coef.npy' % (surrogate, k)), coef)
+            import joblib
+            joblib.dump(model, os.path.join(saveDir,'%s_k%s_model.pkl' % (surrogate, k)))
 
 
     elif surrogate == 'mavenn':

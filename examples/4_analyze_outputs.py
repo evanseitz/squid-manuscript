@@ -59,6 +59,7 @@ def op(pyDir, flank_idx, max_flank, gauge_type):
     import squid.utils as squid_utils
     import squid.figs_surrogate as squid_figs
 
+    lime_mask = False # mask out MAVE-NN features to match those used in LIME K-LASSO
 
     # =============================================================================
     # Import customized user parameters from script set_parameters.py
@@ -249,7 +250,7 @@ def op(pyDir, flank_idx, max_flank, gauge_type):
 
                     dist_x.append(int(get_trailing_number(folder)))
                     
-
+                k = 10 # needed to specify number of LIME features
                 if surrogate == 'mavenn':
                     if linearity == 'linear':
                         mavenn_additive = pd.read_csv(os.path.join(path, 'logo_additive_linear.csv'), index_col=0)
@@ -259,8 +260,28 @@ def op(pyDir, flank_idx, max_flank, gauge_type):
                         except OSError:
                             mavenn_additive = pd.read_csv(os.path.join(path, 'mavenn_additive.csv'), index_col=0)
 
-                elif surrogate == 'ridge':
-                    mavenn_additive = pd.read_csv(os.path.join(path, 'ridge_additive.csv'), index_col=0)
+                    if lime_mask == True:
+                        lime_additive = pd.read_csv(os.path.join(path, 'lime_k%s_additive.csv' % k), index_col=0)
+                        if 0: # mask according to coefficient position
+                            zeros_index = np.where(np.array(lime_additive).flatten()==0)
+                            mavenn_additive = np.array(mavenn_additive).flatten()
+                            mavenn_additive[zeros_index] = 0
+                            mavenn_additive = mavenn_additive.reshape(lime_additive.shape[0], lime_additive.shape[1])
+
+                        else: # mask according to nucleotide position
+                            zeros_index = np.where(np.array(lime_additive)==0, 0, 1)    
+                            for i in range(lime_additive.shape[0]):
+                                if zeros_index[i,0] != 0 or zeros_index[i,1] != 0 or zeros_index[i,2] != 0 or zeros_index[i,3] != 0:
+                                    zeros_index[i,:] = 1
+                            #unique, counts = np.unique(zeros_index, return_counts=True)
+                            #print(dict(zip(unique, counts)))
+                            mavenn_additive = np.array(mavenn_additive)*zeros_index
+
+                elif surrogate == 'ridge' or surrogate == 'lasso':
+                    mavenn_additive = pd.read_csv(os.path.join(path, '%s_additive.csv' % surrogate), index_col=0)
+                
+                elif surrogate == 'lime':
+                    mavenn_additive = pd.read_csv(os.path.join(path, '%s_k%s_additive.csv' % (surrogate, k)), index_col=0)
 
 
                 # fix gauge for fair comparison to other attribution maps
